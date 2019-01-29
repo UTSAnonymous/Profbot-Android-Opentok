@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Profbot Android</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="missing_url">FATAL ERROR: Missing URL to connect to.</string>
+    <string name="rationale_video_app">This app needs access to your camera and mic to make video calls</string>
+</resources>

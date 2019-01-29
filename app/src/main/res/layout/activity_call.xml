@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+    <FrameLayout
+        android:id="@+id/subscriber_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/publisher_container"
+        android:layout_width="@dimen/publisher_width"
+        android:layout_height="@dimen/publisher_height"
+        android:layout_gravity="bottom|start"
+        android:layout_marginEnd="@dimen/publisher_right_margin"
+        android:layout_marginStart="@dimen/publisher_end_margin"
+        android:layout_marginBottom="@dimen/publisher_bottom_margin"
+        android:background="@color/publisher_border_color"
+        android:padding="@dimen/publisher_padding" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/top_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignTop="@+id/down_button"
+        android:layout_marginEnd="73dp"
+        android:layout_marginBottom="30dp"
+        android:layout_toStartOf="@+id/down_button"
+        android:layout_toLeftOf="@+id/down_button"
+        android:background="@drawable/ic_label_black_24dp"
+        android:rotation="270"
+        app:layout_constraintBottom_toTopOf="@+id/down_button"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/down_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/ic_label_black_24dp"
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/top_button" />
+
+    <Button
+        android:id="@+id/left_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignTop="@+id/down_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="50dp"
+        android:layout_toStartOf="@+id/right_button"
+        android:layout_toLeftOf="@+id/right_button"
+        android:background="@drawable/ic_label_black_24dp"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/right_button" />
+
+    <Button
+        android:id="@+id/right_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/ic_label_black_24dp"
+        android:rotation="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/emergency_stop"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/emergency_circle"
+        android:text="STOP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/session_disconnect"
+        android:layout_width="54dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/disconnect"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/mic"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/mic_on"
+        app:layout_constraintStart_toEndOf="@+id/session_disconnect"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/video"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/video_on"
+        app:layout_constraintStart_toEndOf="@+id/mic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
