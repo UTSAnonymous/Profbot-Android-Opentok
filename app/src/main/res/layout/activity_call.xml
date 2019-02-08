@@ -10,23 +10,24 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-    <FrameLayout
-        android:id="@+id/subscriber_container"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        <FrameLayout
+            android:id="@+id/subscriber_container"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    </FrameLayout>
+        </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/publisher_container"
-        android:layout_width="@dimen/publisher_width"
-        android:layout_height="@dimen/publisher_height"
-        android:layout_gravity="bottom|start"
-        android:layout_marginEnd="@dimen/publisher_right_margin"
-        android:layout_marginStart="@dimen/publisher_end_margin"
-        android:layout_marginBottom="@dimen/publisher_bottom_margin"
-        android:background="@color/publisher_border_color"
-        android:padding="@dimen/publisher_padding" />
+        <FrameLayout
+            android:id="@+id/publisher_container"
+            android:layout_width="@dimen/publisher_width"
+            android:layout_height="@dimen/publisher_height"
+            android:layout_gravity="top|end"
+            android:layout_marginStart="@dimen/publisher_end_margin"
+            android:layout_marginEnd="@dimen/publisher_right_margin"
+            android:layout_marginBottom="@dimen/publisher_bottom_margin"
+            android:layout_marginTop="@dimen/publisher_bottom_margin"
+            android:background="@color/publisher_border_color"
+            android:padding="@dimen/publisher_padding" />
     </FrameLayout>
 
     <Button
@@ -90,13 +91,13 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="@drawable/emergency_circle"
         android:text="STOP"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/session_disconnect" />
 
     <Button
         android:id="@+id/session_disconnect"

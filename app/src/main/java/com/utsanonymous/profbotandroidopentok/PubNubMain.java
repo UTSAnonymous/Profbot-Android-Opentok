@@ -115,6 +115,10 @@ public class PubNubMain implements Serializable {
         });
     }
 
+    public void disconnect(){
+        mPubNub.disconnect();
+    }
+
     /*
      public void publish(JSONObject data){
         JSONObject data = new JSONObject() ;

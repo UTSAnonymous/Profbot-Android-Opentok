@@ -3,6 +3,7 @@ package com.utsanonymous.profbotandroidopentok;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.opentok.android.AudioDeviceManager;
+import com.opentok.android.BaseAudioDevice;
 import com.opentok.android.BaseVideoRenderer;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
@@ -22,6 +25,7 @@ import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
+import com.utsanonymous.profbotandroidopentok.opentok.CustomAudioDevice;
 import com.utsanonymous.profbotandroidopentok.opentok.OpenTokConfig;
 import com.utsanonymous.profbotandroidopentok.util.Constants;
 
@@ -99,6 +103,7 @@ public class CallActivity extends AppCompatActivity
 
         mPubNub = new PubNubMain(getApplicationContext(),this.username,CallActivity.this,roomId);
         mPubNub.initPubNub();
+
     }
 
     /**
@@ -133,6 +138,9 @@ public class CallActivity extends AppCompatActivity
     }
 
     private void disconnectButton(){
+        if(mPubNub != null){
+            mPubNub.disconnect();
+        }
         if(mSession != null){
             mSession.disconnect();
             finish();
@@ -204,7 +212,7 @@ public class CallActivity extends AppCompatActivity
     @AfterPermissionGranted(RC_VIDEO_APP_PERM)
     public void requestPermission(){
 
-        String[] perms = { Manifest.permission.INTERNET, Manifest.permission.CAMERA};
+        String[] perms = { Manifest.permission.INTERNET, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
         if(EasyPermissions.hasPermissions(this,perms)){
             initializeSession();
             initializePublisher();
@@ -238,6 +246,10 @@ public class CallActivity extends AppCompatActivity
     //=========================================================================================//
 
     public void initializeSession(){
+
+        CustomAudioDevice customAudioDevice = new CustomAudioDevice(CallActivity.this);
+        AudioDeviceManager.setAudioDevice(customAudioDevice);
+
         mSession = new Session.Builder(this, OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID).build();
         mSession.setSessionListener(this);
         mSession.connect(OpenTokConfig.TOKEN);
@@ -250,7 +262,8 @@ public class CallActivity extends AppCompatActivity
                 .resolution(Publisher.CameraCaptureResolution.LOW)
                 .build();
         mPublisher.setPublisherListener(this);
-        //mPublisher.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FIT);
+        mPublisher.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
+        mPublisher.setPublishAudio(true);
         mPublisherViewContainer.addView(mPublisher.getView());
     }
 
@@ -270,8 +283,7 @@ public class CallActivity extends AppCompatActivity
     public void onStreamReceived(Session session, Stream stream) {
         if(mSubscriber == null){
             mSubscriber = new Subscriber.Builder(this, stream).build();
-            mSubscriber.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FIT);
-            mSubscriber.setPreferredFrameRate((float) 25);
+            mSubscriber.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
             mSession.subscribe(mSubscriber);
             mSubscriberViewContainer.addView(mSubscriber.getView());
         }
@@ -355,14 +367,14 @@ public class CallActivity extends AppCompatActivity
                 case android.view.MotionEvent.ACTION_DOWN:
                     if (mHandler != null) return true;
                     mHandler = new Handler();
-                    mHandler.postDelayed(mAction, 100);
+                    mHandler.postDelayed(mAction, 50);
                     break;
                 case android.view.MotionEvent.ACTION_UP:
                     if (mHandler == null) return true;
-                    mHandler.postDelayed(mAction, 100);
+                    mHandler.postDelayed(mAction, 10);
                     mHandler.removeCallbacks(mAction);
                     mHandler = null;
-                    for(int i = 0; i<5; i++){ stopRobot(); }
+                    stopRobot();
                     System.out.println("Stopping action...");
                     break;
             }
@@ -386,7 +398,7 @@ public class CallActivity extends AppCompatActivity
                         break;
                 }
                 System.out.println("Performing action...");
-                mHandler.postDelayed(this, 100);
+                mHandler.postDelayed(this, 150);
             }
         };
     }
